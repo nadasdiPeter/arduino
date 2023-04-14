@@ -1,10 +1,7 @@
 # Arduino projects
 
-## 2WD Robot Car
-An ArduinoUno based 2WD robot car with obsticle avoidance and wifi control option. 
-
-## ESP Wifi Controller
-An ESP server which receives messages from a wifi-connected client and forwarding the commands on serial port to an ArduinoUNO.
+## Advanced-car-project
+An ESP-12E (NodeMCU) and an Arduino-UNO based car project with wifi control and many extra feature.
 
 ## NodeMCU LED-strip Controller
 Its a NodeMcu server which controls a WS2812B LED-Strip. It also provides some additional information like the current time, temperature and humidity.
