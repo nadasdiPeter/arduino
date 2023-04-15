@@ -10,9 +10,9 @@
 Timer serial_com_timer;
 
 // Callback function for serial_com_timer to handle the Serial communication events.
-void serial_com_timer_Callback() 
+void serial_com_timer_callback() 
 {
-  Serial.print(Get_connection_status());
+  Serial.print(get_connection_status());
 }
 
 void initialize_serial_controller()
@@ -21,14 +21,14 @@ void initialize_serial_controller()
   Serial.begin(SERIAL_BAUD_RATE);
 
   serial_com_timer.setInterval(100); // The timer will repeat every 100 ms
-  serial_com_timer.setCallback(serial_com_timer_Callback);
+  serial_com_timer.setCallback(serial_com_timer_callback);
   serial_com_timer.start(); 
 }
 
 void serial_controller_main()
 {
   byte serial_command;
-  if (GetD_serial_message(&serial_command)) interpreter(serial_command);
+  if (get_serial_message(&serial_command)) interpreter(serial_command);
   serial_com_timer.update();
 }
 
@@ -37,7 +37,7 @@ void serial_write(char c)
    Serial.print(c);
 }
 
-bool GetD_serial_message(byte * message)
+bool get_serial_message(byte * message)
 {
   // serial.available() checks the rx serial buffer  and return its length, if there is any unprocessed data in the buffer the returned value will be bigger than zero.
   if (Serial.available() > 0) 

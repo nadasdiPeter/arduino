@@ -8,10 +8,9 @@
 /* Setting up Wi-Fi Access point */
 IPAddress ip(192, 168, 4, 1);
 IPAddress netmask(255, 255, 255, 0);
-ESP8266WebServer server(port);
+ESP8266WebServer server(PORT);
 
-/* This function handles the HTTP GET "move" requests. */
-/* Example: /move?dir=F */
+
 void handleMoveRequest() 
 {
   if (!server.hasArg("dir")) 
@@ -52,8 +51,6 @@ void handleMoveRequest()
   }
 }
 
-/* This function handles the HTTP GET "action" requests. */
-/* Example: /action?type=1 */
 void handleActionRequest() 
 {
   if (!server.hasArg("type")) 
@@ -89,7 +86,7 @@ void handleActionRequest()
   }
 }
 
-/* This function handles the unknown HTTP GET requests. */
+
 void handleNotFound() 
 {
   server.send(404, "text / plain", "404: Not found");
@@ -105,7 +102,7 @@ void initialize_wifi_controller()
 
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(ip, ip, netmask);
-  WiFi.softAP(ssid, password);
+  WiFi.softAP(SSID, PASSWORD);
 
   /* Define HTTP GET request handler functions and start the server */
   server.on("/move",   HTTP_GET, handleMoveRequest);
@@ -121,7 +118,7 @@ void wifi_controller_main()
    server.handleClient();
 }
 
-char Get_connection_status()
+char get_connection_status()
 {
   // WiFi.softAPgetStationNum() returns the number of the connected devices.
   return ((WiFi.softAPgetStationNum()) ? SERIAL_COM_COMMAND__connected : SERIAL_COM_COMMAND__disconnected);

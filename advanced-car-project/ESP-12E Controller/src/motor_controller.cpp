@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include "config_definition_esp.h"
+#include "motor_controller.h"
 
 boolean forward_allowed = true;
 
@@ -12,8 +13,8 @@ void move(int direction)
     {
       digitalWrite(MotorB_DIR, FORWARD_direction);
       digitalWrite(MotorA_DIR, FORWARD_direction);
-      digitalWrite(MotorA_PWM, motor_speed_maximum);
-      digitalWrite(MotorB_PWM, motor_speed_maximum); 
+      digitalWrite(MotorA_PWM, MOTOR_SPEED__MAXIMUM);
+      digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM); 
     }
     else
     {
@@ -22,22 +23,22 @@ void move(int direction)
     break;
   case LEFT:
     digitalWrite(MotorB_DIR, FORWARD_direction);
-    digitalWrite(MotorB_PWM, motor_speed_maximum);
+    digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM);
     break;
   case RIGHT:
     digitalWrite(MotorA_DIR, FORWARD_direction);
-    digitalWrite(MotorA_PWM, motor_speed_maximum);
+    digitalWrite(MotorA_PWM, MOTOR_SPEED__MAXIMUM);
     break;
   case BACKWARD:
     digitalWrite(MotorA_DIR, BACKWARD_direction);
     digitalWrite(MotorB_DIR, BACKWARD_direction);
-    digitalWrite(MotorA_PWM, motor_speed_maximum);
-    digitalWrite(MotorB_PWM, motor_speed_maximum);
+    digitalWrite(MotorA_PWM, MOTOR_SPEED__MAXIMUM);
+    digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM);
     break;
   case STOP:
   default:
-    digitalWrite(MotorA_PWM, motor_speed_standstill);
-    digitalWrite(MotorB_PWM, motor_speed_standstill);  
+    digitalWrite(MotorA_PWM, MOTOR_SPEED__STANDSTILL);
+    digitalWrite(MotorB_PWM, MOTOR_SPEED__STANDSTILL);  
     break;
   }
 }
