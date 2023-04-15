@@ -1,16 +1,21 @@
 #include "config_definition_uno.h"
 #include "sonar_control.h"
+#include "display_control.h"
 #include <LiquidCrystal_I2C.h>
 #include <Arduino.h>
 #include "timer.h"
 
-LiquidCrystal_I2C lcd_display(0x27, 16, 2);               // Set the LCD address to 0x27 for a 16 chars and 2 line display
-display_info_mode_t display_info_mode = ip_mode;
-boolean backlight_status = true;
+
+
 Timer display_update_cycle;
-serial_command_t last_displayed_command = serial_command_t("undef",0);
-msg_direction_t last_displayed_command_dir = rx;
-connection_status_t last_connection_sts = status_unconnected;
+LiquidCrystal_I2C lcd_display(0x27, 16, 2); // Set the LCD address to 0x27 for a 16 chars and 2 line display
+display_info_mode_t display_info_mode       = ip_mode;
+boolean backlight_status                    = true;
+serial_command_t last_displayed_command     = serial_command_t("undef",0);
+msg_direction_t last_displayed_command_dir  = rx;
+connection_status_t last_connection_sts     = status_unconnected;
+
+
 
 void display_main(connection_status_t connection)
 {
@@ -18,12 +23,12 @@ void display_main(connection_status_t connection)
     display_update_cycle.update();
 }
 
-void Set_display_info_mode(display_info_mode_t mode)
+void set_display_info_mode(display_info_mode_t mode)
 {
   display_info_mode = mode;
 }
 
-String Get_display_info_mode_text()
+String get_display_info_mode_text()
 {
   switch(display_info_mode)
   {
@@ -38,26 +43,26 @@ String Get_display_info_mode_text()
   }
 }
 
-void Next_display_info_mode()
+void next_display_info_mode()
 {
   switch(display_info_mode)
   {
     case ip_mode:
-      Set_display_info_mode(clock_mode);
+      set_display_info_mode(clock_mode);
       break;
     case clock_mode: 
-      Set_display_info_mode(distance_mode);
+      set_display_info_mode(distance_mode);
       break;
     case distance_mode: 
-      Set_display_info_mode(ip_mode);
+      set_display_info_mode(ip_mode);
       break;
     default:
-      Set_display_info_mode(ip_mode);
+      set_display_info_mode(ip_mode);
       break;
   }
 }
 
-/* updates the diplayed text in the first line */
+
 void update_1st_line_command(connection_status_t connection)
 {
   lcd_display.setCursor(0, 0);
@@ -70,15 +75,14 @@ void update_1st_line_command(connection_status_t connection)
       lcd_display.print("[" + (String)((connection == status_connected) ? 'c' : 'u') + "] " + String(millis()/1000) + "(s)");
       break;
     case distance_mode:
-      int dist = Get_last_measured_distance();
+      int dist = get_last_measured_distance();
       String s = (dist==0) ? "- " : String(dist);
       lcd_display.print("[" + (String)((connection == status_connected) ? 'c' : 'u') + "] " + s + "(cm)");
       break;
   }
 }
 
-/* updates the diplayed text in the second line */
-serial_command_t update_2nd_line_command(serial_command_t command, msg_direction_t msg_dir = rx)
+serial_command_t update_2nd_line_command(serial_command_t command, msg_direction_t msg_dir)
 {
   last_displayed_command_dir = msg_dir;
   String arrows = (msg_dir == rx) ? ">> " : "<< ";
@@ -101,15 +105,14 @@ void write_unconnected_display_message()
 {
   lcd_display.clear();
   lcd_display.setCursor(0, 0);
-  lcd_display.print("Wifi: myCAR");
+  lcd_display.print((String)"Wifi: " + (String)WIFI_HOST_NAME);
   lcd_display.setCursor(0, 1);
-  lcd_display.print("Pass: letmejoin");
+  lcd_display.print((String)"Pass: " + (String)WIFI_PASSWORD);
 }
 
-/* Initialize the lcd display */
 void initialize_lcd_display()
 {
-  display_update_cycle.setInterval(1000); // The timer will repeat every 100 ms
+  display_update_cycle.setInterval(DISPLAY_REFRESH_RATE);
   display_update_cycle.setCallback(cyclic_display_update_handler);
   display_update_cycle.start(); 
 
@@ -125,8 +128,8 @@ void toggle_lcd_backlight()
   else lcd_display.noBacklight();
 }
 
-/* updates the diplayed text */
-void update_lcd_display_text(connection_status_t connection, int command_id = 0)
+
+void update_lcd_display_text(connection_status_t connection, int command_id)
 {
   last_connection_sts = connection;
   if( connection == status_connected )
@@ -171,7 +174,7 @@ void update_lcd_display_text(connection_status_t connection, int command_id = 0)
           break;
 
         case SERIAL_COM_COMMAND__info:
-          last_displayed_command = update_2nd_line_command(serial_command_t(Get_display_info_mode_text(),command_id));
+          last_displayed_command = update_2nd_line_command(serial_command_t(get_display_info_mode_text(),command_id));
           break;
 
         case SERIAL_COM_COMMAND__fca:

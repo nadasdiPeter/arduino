@@ -1,19 +1,34 @@
+/**
+ *   Author:       Peter Horvath
+ *   Email:        nadasdi.horvath.peter@gmail.com
+ * 
+ *   Description:  Main controller class which intended to call the sub-init and main functions of the other controller classes. 
+ *                 This files contains the sheduling, and main interpreter functions.
+ * 
+ *   (c) Copyright by Peter Horvath
+ *
+ **/
+
 #include <Arduino.h>
 #include <Wire.h>
-
 #include "config_definition_uno.h"
 #include "display_control.h"
 #include "serial_com_control.h"
-#include "led_control.h"
+#include "led_controller.h"
 #include "sonar_control.h"
 #include "forward_collision_avoidance_assist.h"
 
+
 connection_status_t connection_status = status_unconnected;
 
+
+/**
+* Cyclic sub-main function which handles the commands received on the serial bus channel.
+*/
 void controller_main()
 {
   byte serial_command;
-  if (GetD_serial_message(&serial_command))
+  if (get_serial_message(&serial_command))
   { 
     switch (serial_command)
     {
@@ -45,7 +60,7 @@ void controller_main()
         break;
 
       case SERIAL_COM_COMMAND__info:
-        Next_display_info_mode();
+        next_display_info_mode();
         update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__info);
         break;
 
@@ -61,6 +76,9 @@ void controller_main()
   }
 }
 
+/**
+* Main setup function which is triggerint the initialization of the sensors and actuators connected to the UNO.
+*/
 void setup()
 {
   initialize_led_controller();
@@ -69,6 +87,9 @@ void setup()
   initialize_sonar();
 }
 
+/**
+* Main loop function which contains the sheduling.
+*/
 void loop()
 {
   fca_main(connection_status);

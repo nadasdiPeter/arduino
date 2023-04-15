@@ -8,7 +8,7 @@ NewPing sonar(HCSR04_TRIGGER, HCSR04_ECHO, MAX_DISTANCE); // setup of pins and m
 Timer distance_update_cycle;
 unsigned int distance = 0;
 
-unsigned int Get_last_measured_distance()
+unsigned int get_last_measured_distance()
 {
    return distance;
 }

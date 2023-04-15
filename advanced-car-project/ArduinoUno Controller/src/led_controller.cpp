@@ -1,5 +1,5 @@
 #include "config_definition_uno.h"
-#include "led_control.h"
+#include "led_controller.h"
 #include "timer.h"
 #include <Arduino.h>
 #include "forward_collision_avoidance_assist.h"
@@ -16,9 +16,9 @@ connection_status_t last_connection_state = status_unconnected;
 Timer unconnected_cycle_timer;
 int unconnected_led_animation_counter = 0;
 
-void Set_warning_lamp( int LED, int requested_state)
+void set_warning_lamp( int led, int requested_state)
 {
-   digitalWrite(LED, requested_state);
+   digitalWrite(led, requested_state);
 }
 
 void unconnected_update_handler()
@@ -103,16 +103,16 @@ void led_main( connection_status_t connection)
       if(unconnected_cycle_timer.isRunning() == true) unconnected_cycle_timer.stop();
       
       /* yellow warning lamp */
-      Set_warning_lamp(YELLOW_WL,LOW);
+      set_warning_lamp(YELLOW_WL,LOW);
 
       /* green warning lamp */
-      Set_warning_lamp(GREEN_WL,(is_fca_active()) ? HIGH : LOW);
+      set_warning_lamp(GREEN_WL,(is_fca_active()) ? HIGH : LOW);
 
       /* red warning lamp */
       if(is_fca_active())
-         Set_warning_lamp(RED_WL,(Get_zone() == unsafe_zone) ? HIGH : LOW);
+         set_warning_lamp(RED_WL,(get_fca_zone() == unsafe_zone) ? HIGH : LOW);
       else 
-         Set_warning_lamp(RED_WL,LOW);
+         set_warning_lamp(RED_WL,LOW);
    }
    else
    {

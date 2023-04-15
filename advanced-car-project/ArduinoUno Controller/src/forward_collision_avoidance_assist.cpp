@@ -4,7 +4,7 @@
 #include "config_definition_uno.h"
 #include "display_control.h"
 #include "serial_com_control.h"
-#include "led_control.h"
+#include "led_controller.h"
 #include "sonar_control.h"
 #include "forward_collision_avoidance_assist.h"
 
@@ -16,7 +16,7 @@ boolean is_fca_active()
    return fca_active;
 }
 
-zone_mode_t Get_zone()
+zone_mode_t get_fca_zone()
 {
    return zone_status;
 }
@@ -35,8 +35,8 @@ void fca_main(connection_status_t connection_status)
 {
    if( fca_active )
    {
-      unsigned int distance = Get_last_measured_distance();
-      if( distance < EMERGENCY_STOP_DISTANCE && distance != 0u )
+      unsigned int distance = get_last_measured_distance();
+      if( distance < EMERGENCY_STOP_DISTANCE && distance != INVALID_DISTANCE )
       {
          serial_write(SERIAL_COM_COMMAND__unsafe_distance);
          if(zone_status == safe_zone)

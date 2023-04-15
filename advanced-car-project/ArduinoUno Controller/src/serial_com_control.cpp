@@ -8,7 +8,7 @@ void initialize_serial_com()
   Serial.begin(SERIAL_BAUD_RATE);
 }
 
-bool GetD_serial_message(byte * message)
+bool get_serial_message(byte * message)
 {
   // serial.available() checks the rx serial buffer  and return its length, if there is any unprocessed data in the buffer the returned value will be bigger than zero.
   if (Serial.available() > 0) 
