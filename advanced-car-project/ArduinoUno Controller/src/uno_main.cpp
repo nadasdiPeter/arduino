@@ -17,6 +17,7 @@
 #include "led_controller.h"
 #include "sonar_control.h"
 #include "forward_collision_avoidance_assist.h"
+#include "battery_voltage_monitor.h"
 
 
 connection_status_t connection_status = status_unconnected;
@@ -85,6 +86,7 @@ void setup()
   initialize_lcd_display();
   initialize_serial_com();
   initialize_sonar();
+  initialize_battery_voltage();
 }
 
 /**
@@ -97,4 +99,5 @@ void loop()
   display_main(connection_status);
   sonar_main();
   led_main(connection_status);
+  battery_voltage_main();
 }

@@ -4,6 +4,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Arduino.h>
 #include "timer.h"
+#include "battery_voltage_monitor.h"
 
 
 
@@ -38,6 +39,8 @@ String get_display_info_mode_text()
       return "clock";
     case distance_mode: 
       return "distance";
+    case voltage_mode: 
+      return "voltage";
     default:
       return "info";
   }
@@ -54,6 +57,9 @@ void next_display_info_mode()
       set_display_info_mode(distance_mode);
       break;
     case distance_mode: 
+      set_display_info_mode(voltage_mode);
+      break;
+    case voltage_mode: 
       set_display_info_mode(ip_mode);
       break;
     default:
@@ -65,19 +71,28 @@ void next_display_info_mode()
 
 void update_1st_line_command(connection_status_t connection)
 {
+  String connected_symbol = "[" + (String)((connection == status_connected) ? 'c' : 'u') + "] ";
+  String distance = "";
+
   lcd_display.setCursor(0, 0);
+
   switch( display_info_mode )
   {
     case ip_mode:
-      lcd_display.print("192.168.4.1:8080");
+      lcd_display.print(IP_ADDRESS);
       break;
     case clock_mode:
-      lcd_display.print("[" + (String)((connection == status_connected) ? 'c' : 'u') + "] " + String(millis()/1000) + "(s)");
+      lcd_display.print(connected_symbol + String(millis()/1000) + "(s)");
       break;
     case distance_mode:
-      int dist = get_last_measured_distance();
-      String s = (dist==0) ? "- " : String(dist);
-      lcd_display.print("[" + (String)((connection == status_connected) ? 'c' : 'u') + "] " + s + "(cm)");
+      distance = (get_last_measured_distance() == 0) ? "- " : String(get_last_measured_distance());
+      lcd_display.print(connected_symbol + distance + "(cm)");
+      break;
+    case voltage_mode:
+      lcd_display.print(String(get_last_measured_voltage()) + "(V) " + String(get_last_measured_voltage_raw()) + "(-)" );
+      break;
+    default:
+      /* Not possible. */
       break;
   }
 }

@@ -33,9 +33,10 @@
   #define PIN_ANALOG0     A0    /* unused */
   #define LED_HEADLIGHT   A1
   #define PIN_ANALOG2     A2    /* unused */
-  #define PIN_ANALOG3     A3    /* unused */
-  #define PIN_ANALOG4     A4    /* unused */
-  #define PIN_ANALOG5     A5    /* unused */
+  #define BATTERY_VOLTAGE A3    
+  #define LCD_PIN1        A4    
+  #define LCD_PIN2        A5    
+
 
   #define SERIAL_BAUD_RATE                  115200u   // serial communication speed (need to be the same on both side)
   #define SONAR_REFRESH_CYCLE               35u       // (ms) - minimum time between two update is 29ms !!!
@@ -44,9 +45,16 @@
   #define INVALID_DISTANCE                  0u        // Measures distance outside the maximum range.
   #define EMERGENCY_STOP_DISTANCE           25u       // Minimum distance to measure with HCSR04 sonar (in centimeters)
   #define DISPLAY_REFRESH_RATE              1000u     // Refresh cycle of the LCD display in ms.
-
-  #define WIFI_HOST_NAME                    "myCAR"      // Name of the created Wifi network
-  #define WIFI_PASSWORD                     "letmejoin"  // The password of the created Wifi network
+  #define BATTERY_VOLTAGE_READ_CYCLE        1000u     // Refreshing rate of the voltage information in ms.
+  #define VOLTAGE_DIVIDER__R1               46100.0   // Resistance R1 in the voltage divider circuit (unit: Ohm)
+  #define VOLTAGE_DIVIDER__R2               46300.0   // Resistance R1 in the voltage divider circuit (unit: Ohm)
+  #define VOLTAGE_DIVIDER__Vout             5.0       // Output voltage in the voltage divider circuit (Volt)
+  #define SOURCE_VOLTAGE                    7.5       // The expected source voltage. (2 cell of NCR18650B 3.7(V) 3400(mah) 18650 Lithium Rechargeable Battery)
+  #define UNDERVOLTAGE                      7.0       // The defined minimum limit of the main source voltage (Unit: Volt)
+  #define OVERVOLTAGE                       12.0      // The defined maximum limit of the main source voltage (Unit: Volt)
+  #define IP_ADDRESS              "192.168.4.1:8080"  // The address of the ESP Wifi network
+  #define WIFI_HOST_NAME          "myCAR"             // Name of the created Wifi network
+  #define WIFI_PASSWORD           "letmejoin"         // The password of the created Wifi network
   
 
   /* Commands / messages used for serial bus communication between the ESP-12E a Arduino-UNO */
@@ -75,7 +83,8 @@
   {
     ip_mode,
     clock_mode,
-    distance_mode
+    distance_mode,
+    voltage_mode
   };
 
   enum zone_mode_t
