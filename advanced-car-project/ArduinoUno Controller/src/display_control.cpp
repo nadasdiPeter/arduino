@@ -89,7 +89,7 @@ void update_1st_line_command(connection_status_t connection)
       lcd_display.print(connected_symbol + distance + "(cm)");
       break;
     case voltage_mode:
-      lcd_display.print(String(get_last_measured_voltage()) + "(V) " + String(get_last_measured_voltage_raw()) + "(-)" );
+      lcd_display.print(connected_symbol + String(get_last_measured_voltage()) + "(V)");
       break;
     default:
       /* Not possible. */

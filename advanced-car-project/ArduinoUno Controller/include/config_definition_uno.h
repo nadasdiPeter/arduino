@@ -51,7 +51,14 @@
   #define VOLTAGE_DIVIDER__Vout             5.0       // Output voltage in the voltage divider circuit (Volt)
   #define SOURCE_VOLTAGE                    7.5       // The expected source voltage. (2 cell of NCR18650B 3.7(V) 3400(mah) 18650 Lithium Rechargeable Battery)
   #define UNDERVOLTAGE                      7.0       // The defined minimum limit of the main source voltage (Unit: Volt)
-  #define OVERVOLTAGE                       12.0      // The defined maximum limit of the main source voltage (Unit: Volt)
+  #define UNDERVOLTAGE_MONITORING_TIME      3000u     // The monitoring time of the undervoltage situation. (ms)
+  #define OVERVOLTAGE                       11.5      // The defined maximum limit of the main source voltage (Unit: Volt)
+  #define VOLTAGE_DIVIDER_FACTOR            0.994     // A magic number used to correct the calculated battery voltage. (99.4%)
+
+
+  #define ANALOG_READ_MAX_VALUE             1024      // Arduino able to read the value from the specified analog pin, it is uses a 10-bit analog to digital converter.
+                                                      // This means that it will map input voltages between 0 and the operating voltage(5V or 3.3V) into integer values between 0 and 1023.
+
   #define IP_ADDRESS              "192.168.4.1:8080"  // The address of the ESP Wifi network
   #define WIFI_HOST_NAME          "myCAR"             // Name of the created Wifi network
   #define WIFI_PASSWORD           "letmejoin"         // The password of the created Wifi network
@@ -97,6 +104,13 @@
   {
     rx,
     tx
+  };
+
+  enum voltage_sate_t
+  {
+    normal_voltage,
+    undervoltage,
+    overvoltage
   };
 
   struct serial_command_t

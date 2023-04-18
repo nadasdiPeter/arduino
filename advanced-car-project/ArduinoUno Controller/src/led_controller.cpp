@@ -3,6 +3,7 @@
 #include "timer.h"
 #include <Arduino.h>
 #include "forward_collision_avoidance_assist.h"
+#include "battery_voltage_monitor.h"
 
 #define TURN_GREEN_WL_ON   digitalWrite(GREEN_WL, HIGH)
 #define TURN_GREEN_WL_OFF  digitalWrite(GREEN_WL, LOW)
@@ -102,13 +103,22 @@ void led_main( connection_status_t connection)
    {
       if(unconnected_cycle_timer.isRunning() == true) unconnected_cycle_timer.stop();
       
-      /* yellow warning lamp */
-      set_warning_lamp(YELLOW_WL,LOW);
+      /* YELLOW warning lamp
+       * Turn on and off according the Battery Voltage Monitor
+       * Off - If the voltage is in the normal range.
+       * On  - If under or overvoltage detected. */
+      set_warning_lamp(YELLOW_WL,(get_voltage_state() == normal_voltage) ? LOW : HIGH);
 
-      /* green warning lamp */
+      /* GREEN warning lamp 
+       * Turn on and off according the FCA state.
+       * Off - If the FCA is disabled
+       * On  - If the FCA is enabled */
       set_warning_lamp(GREEN_WL,(is_fca_active()) ? HIGH : LOW);
 
-      /* red warning lamp */
+      /* RED warning lamp 
+       * Turn on and off according the zone feedback of the FCA
+       * Off - If the FCA disabled or if the FCA active but detecting SAFE zone.
+       * On  - If the FCA active and detecting UNSAFE zone */
       if(is_fca_active())
          set_warning_lamp(RED_WL,(get_fca_zone() == unsafe_zone) ? HIGH : LOW);
       else 

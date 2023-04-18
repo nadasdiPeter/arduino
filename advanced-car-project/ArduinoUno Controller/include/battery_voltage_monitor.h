@@ -12,6 +12,14 @@
    #define BATTERY_VOLTAGE_MONITOR_H
 
    /**
+    * Provides the latest and greatast voltage information in a simplified way. It has 3 possible states:
+    * normal / undervoltage / overvoltage. The functuin calculates the sates based on the predifined limits in the config file.
+    * 
+    * @returns Returns the calculated state of voltage: normal / under- / overvoltage.
+    */
+   extern voltage_sate_t get_voltage_state();
+
+   /**
     * Provides the latest and greatast voltage information in Volt format measured from the voltage divider circuit. 
     * 
     * @returns Returns the latest and greatest measured volatge information in Volt.
@@ -34,6 +42,11 @@
     * Cyclic function to calculate the battery voltage based on the voltage divider circuit.
     */
    extern void cyclic_voltage_update_handler();
+
+   /**
+    * The function which is called when the undervoltage monitor detects a failure.
+    */
+   extern void undervoltage_handler();
 
    /**
     * Initialize the resources which are use to measure the battery voltage.
