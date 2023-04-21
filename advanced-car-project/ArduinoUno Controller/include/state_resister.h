@@ -49,4 +49,43 @@
     */
    extern direction_t get_vehicle_status();
 
+   /**
+    * Returns a the mode which is activated by the user.
+    * 
+    * @return Returns the activ mode ip-port / clock / distance ...
+    */
+   extern display_info_mode_t get_display_info_mode();
+
+   /**
+    * Returns a the name of the mode which is activated by the user.
+    * The mode name used on the display  instead of the INFO command to specify the command in a more detiled way.
+    * 
+    * @return The name of the activ mode ip-port / clock / distance ...
+    */
+   extern String get_display_info_mode_text();
+
+   /**
+    *  Updates the displayed text on the LCD, according the received connection status
+    * 
+    * @param mode contains the requested info mode: ip-port / clock / distance ...
+    */
+   extern void set_display_info_mode(display_info_mode_t mode);
+
+   /**
+    *  Request to show the next option in the info mode menu: ip-port / clock / distance ...
+    */
+   extern void next_display_info_mode();
+
+   /**
+    *  Saves the last displayed command for later use.
+    */
+   extern void set_last_command_details(serial_command_t cmd);
+
+   /**
+    *  Provides the last displayed command for cyclic updates.
+    * 
+    * @return serial_command_t with the details of the command.
+    */
+   extern serial_command_t get_last_command_details();
+
 #endif /* STATE_REGISTER_H */

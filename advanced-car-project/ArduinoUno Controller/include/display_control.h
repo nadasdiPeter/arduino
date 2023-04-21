@@ -17,18 +17,6 @@
    extern void display_main();
 
    /**
-    *  Updates the displayed text on the LCD, according the received connection status
-    * 
-    * @param mode contains the requested info mode: ip-port / clock / distance ...
-    */
-   extern void set_display_info_mode(display_info_mode_t mode);
-
-   /**
-    *  Request to show the next option in the info mode menu: ip-port / clock / distance ...
-    */
-   extern void next_display_info_mode();
-
-   /**
     *  Taking care of the initialization of the LCD display.
     */
    extern void initialize_lcd_display();
@@ -53,10 +41,8 @@
     * Updates the LCD display according the current satus and request
     * 
     * @param command ID of the command from which the details needs to be printed.
-    * @param msg_dir contains the info which node sending the message (esp: rx, uno: tx) Default value: RX
-    * @return the id of the command
     */
-   extern serial_command_t update_2nd_line_command(serial_command_t command, msg_direction_t msg_dir = rx);
+   extern void update_2nd_line_command(serial_command_t command);
 
    /**
     * Updates the LCD display according the current satus and request
@@ -64,14 +50,6 @@
     * @param command_id ID of the command from which the details needs to be printed. Default value: 0
     */
    extern void update_lcd_display_text(int command_id = 0);
-
-   /**
-    * Returns a the name of the mode which is activated by the user.
-    * The mode name used on the display  instead of the INFO command to specify the command in a more detiled way.
-    * 
-    * @return The name of the activ mode ip-port / clock / distance ...
-    */
-   extern String get_display_info_mode_text();
 
    /**
     * Cyclic lcd update task which is called by the display timer (display_update_cycle) according to the DISPLAY_REFRESH_RATE.

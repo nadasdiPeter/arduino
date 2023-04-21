@@ -138,11 +138,13 @@
   {
     String cmd_name;
     int cmd_id;
+    msg_direction_t cmd_dir;
 
-    serial_command_t( String name, int id)
+    serial_command_t( String name, int id, msg_direction_t dir = rx)
     {
       cmd_name = name;
       cmd_id = id;
+      cmd_dir = dir;
     }
   };
 

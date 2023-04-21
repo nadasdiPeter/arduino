@@ -8,8 +8,10 @@
 #include "sonar_control.h"
 #include "forward_collision_avoidance_assist.h"
 
+
 zone_mode_t zone_status = unsafe_zone;
-boolean fca_active = true;
+boolean     fca_active  = true;
+
 
 boolean is_fca_active()
 {
