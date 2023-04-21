@@ -13,10 +13,8 @@
 
    /**
     *  Cyclic main function of the display controller
-    * 
-    * @param connection contains the info whether the esp has any client connected or not
     */
-   extern void display_main(connection_status_t connection);
+   extern void display_main();
 
    /**
     *  Updates the displayed text on the LCD, according the received connection status
@@ -48,10 +46,8 @@
 
    /**
     *  Updates the first line of the LCD display if the connection status: connected
-    * 
-    * @param connection contains the info whether the esp has any client connected or not
     */
-   extern void update_1st_line_command(connection_status_t connection);
+   extern void update_1st_line_command();
 
    /**
     * Updates the LCD display according the current satus and request
@@ -65,10 +61,9 @@
    /**
     * Updates the LCD display according the current satus and request
     * 
-    * @param connection contains the info whether the esp has any client connected or not
     * @param command_id ID of the command from which the details needs to be printed. Default value: 0
     */
-   extern void update_lcd_display_text(connection_status_t connection, int command_id = 0);
+   extern void update_lcd_display_text(int command_id = 0);
 
    /**
     * Returns a the name of the mode which is activated by the user.

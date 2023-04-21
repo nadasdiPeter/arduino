@@ -40,4 +40,19 @@
     */
    extern boolean is_forward_allowed();
 
+   /**
+    * Toggles between the two defined turning mode of the motor driver.
+    * If the previous mode was turning_fast than it sets the actual mode to slow, or vica-versa.
+    * 
+    * The two mode: fast and slow.
+    */
+   extern void change_turning_mode();
+
+   /**
+    * Gets the active turning mode. (Fast or slow)
+    * 
+    * @returns turning_mode_t (Fast or slow)
+    */
+   extern turning_mode_t get_turning_mode();
+
 #endif /* MOTOR_CONTROLLER_H */

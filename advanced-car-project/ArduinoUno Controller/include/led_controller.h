@@ -23,10 +23,8 @@
 
    /**
     * Cyclic main function of the led-controller which calculates the warning lamps states. (green/yellow/red lamps)
-    * 
-    * @param connection contains the info whether the esp has any client connected or not
     */
-   extern void led_main( connection_status_t connection);
+   extern void led_main();
 
    /**
     * Sets the state of the given warning lamps (green/yellow/red lamps)

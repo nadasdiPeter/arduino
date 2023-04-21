@@ -62,22 +62,27 @@ void handleActionRequest()
   if (type.equals("1")) 
   {
     interpreter(LED);
-    server.send(200, "text / plain", "Action: led");
+    server.send(200, "text / plain", "Action: led-mode");
   }
   else if (type.equals("2")) 
   {
     interpreter(LCD);
-    server.send(200, "text / plain", "Action: control_change");
+    server.send(200, "text / plain", "Action: lcd-mode");
   }
   else if (type.equals("3")) 
   {
     interpreter(INFO);
-    server.send(200, "text / plain", "Action: clock-mode");
+    server.send(200, "text / plain", "Action: info-mode");
+  }
+  else if (type.equals("4")) 
+  {
+    interpreter(TURNING_MODE);
+    server.send(200, "text / plain", "Action: turning-mode");
   }
   else if (type.equals("5")) 
   {
     interpreter(FCA);
-    server.send(200, "text / plain", "Action: distance-mode");
+    server.send(200, "text / plain", "Action: fca-mode");
   }
   else 
   {

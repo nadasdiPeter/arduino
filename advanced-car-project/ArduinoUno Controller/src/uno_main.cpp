@@ -18,10 +18,7 @@
 #include "sonar_control.h"
 #include "forward_collision_avoidance_assist.h"
 #include "battery_voltage_monitor.h"
-
-
-connection_status_t connection_status = status_unconnected;
-
+#include "state_resister.h"
 
 /**
 * Cyclic sub-main function which handles the commands received on the serial bus channel.
@@ -38,36 +35,41 @@ void controller_main()
       case SERIAL_COM_COMMAND__backward:
       case SERIAL_COM_COMMAND__right:
       case SERIAL_COM_COMMAND__left:
-        update_lcd_display_text(connection_status, serial_command);
+        set_vehicle_status(serial_command);
+        update_lcd_display_text(serial_command);
         break;
         
       case SERIAL_COM_COMMAND__led:
         toggle_led_headlight();
-        update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__led);
+        update_lcd_display_text(SERIAL_COM_COMMAND__led);
         break;
 
       case SERIAL_COM_COMMAND__disconnected:
       case SERIAL_COM_COMMAND__connected:
-        if( connection_status != (connection_status_t)serial_command )
+        if( get_connection_status() != (connection_status_t)serial_command )
         {
-          connection_status = (connection_status_t)serial_command;
-          update_lcd_display_text(connection_status, serial_command);
+          set_connection_status((connection_status_t)serial_command);
+          update_lcd_display_text(serial_command);
         }
         break;
       
       case SERIAL_COM_COMMAND__lcd:
         toggle_lcd_backlight();
-        update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__lcd);
+        update_lcd_display_text(SERIAL_COM_COMMAND__lcd);
         break;
 
       case SERIAL_COM_COMMAND__info:
         next_display_info_mode();
-        update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__info);
+        update_lcd_display_text(SERIAL_COM_COMMAND__info);
         break;
 
       case SERIAL_COM_COMMAND__fca:
         (is_fca_active() == true) ? disable_fca() : enable_fca();
-        update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__fca);
+        update_lcd_display_text(SERIAL_COM_COMMAND__fca);
+        break;
+
+      case SERIAL_COM_COMMAND__turning_mode:
+        update_lcd_display_text(SERIAL_COM_COMMAND__turning_mode);
         break;
       
       default:
@@ -94,10 +96,10 @@ void setup()
 */
 void loop()
 {
-  fca_main(connection_status);
+  fca_main();
   controller_main();
-  display_main(connection_status);
+  display_main();
   sonar_main();
-  led_main(connection_status);
+  led_main();
   battery_voltage_main();
 }

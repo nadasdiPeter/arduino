@@ -56,6 +56,11 @@ void interpreter(int command)
     serial_write(SERIAL_COM_COMMAND__fca);
     request_beep(BEEP_1000kHz);
     break;
+  case TURNING_MODE:
+    change_turning_mode();
+    serial_write(SERIAL_COM_COMMAND__turning_mode);
+    request_beep(BEEP_1000kHz);
+    break;
   case SERIAL_COM_COMMAND__unsafe_distance:
     move_foward_unsafe();
     break;

@@ -31,7 +31,7 @@ void enable_fca()
    fca_active = true;
 }
 
-void fca_main(connection_status_t connection_status)
+void fca_main()
 {
    if( fca_active )
    {
@@ -42,7 +42,7 @@ void fca_main(connection_status_t connection_status)
          if(zone_status == safe_zone)
          {
             zone_status = unsafe_zone;
-            update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__unsafe_distance);
+            update_lcd_display_text(SERIAL_COM_COMMAND__unsafe_distance);
          }
       }
       else
@@ -51,7 +51,7 @@ void fca_main(connection_status_t connection_status)
          if(zone_status == unsafe_zone)
          {
             zone_status = safe_zone;
-            update_lcd_display_text(connection_status, SERIAL_COM_COMMAND__safe_distance);
+            update_lcd_display_text(SERIAL_COM_COMMAND__safe_distance);
          }
       }
    }

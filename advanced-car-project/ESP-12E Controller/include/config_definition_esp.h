@@ -28,6 +28,7 @@
    #define LCD                             7
    #define INFO                            8
    #define FCA                             10 /* Forward Collision-Avoidance Assist */
+   #define TURNING_MODE                    11
 
    #define FORWARD_direction               LOW
    #define BACKWARD_direction              HIGH
@@ -63,6 +64,14 @@
    #define SERIAL_COM_COMMAND__unsafe_distance             (char)0x75    /* Asci code: u */
    #define SERIAL_COM_COMMAND__safe_distance               (char)0x73    /* Asci code: s */
    #define SERIAL_COM_COMMAND__fca                         (char)0x66    /* Asci code: f */
-   #define SERIAL_COM_COMMAND__test                        (char)0x54    /* Asci code: T */
+   #define SERIAL_COM_COMMAND__turning_mode                (char)0x54    /* Asci code: T */
+   #define SERIAL_COM_COMMAND__test                        (char)0x74    /* Asci code: t */
+
+
+  enum turning_mode_t
+  {
+    turning_mode_slow,
+    turning_mode_fast
+  };
 
 #endif /* CONFIG_DEFINITION_ESP_H */

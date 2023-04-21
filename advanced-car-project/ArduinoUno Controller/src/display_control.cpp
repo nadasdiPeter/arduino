@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include "timer.h"
 #include "battery_voltage_monitor.h"
-
+#include "state_resister.h"
 
 
 Timer display_update_cycle;
@@ -14,13 +14,10 @@ display_info_mode_t display_info_mode       = ip_mode;
 boolean backlight_status                    = true;
 serial_command_t last_displayed_command     = serial_command_t("undef",0);
 msg_direction_t last_displayed_command_dir  = rx;
-connection_status_t last_connection_sts     = status_unconnected;
 
 
-
-void display_main(connection_status_t connection)
+void display_main()
 {
-    last_connection_sts = connection;
     display_update_cycle.update();
 }
 
@@ -69,9 +66,9 @@ void next_display_info_mode()
 }
 
 
-void update_1st_line_command(connection_status_t connection)
+void update_1st_line_command()
 {
-  String connected_symbol = "[" + (String)((connection == status_connected) ? 'c' : 'u') + "] ";
+  String connected_symbol = "[" + (String)((get_connection_status() == status_connected) ? 'c' : 'u') + "] ";
   String distance = "";
 
   lcd_display.setCursor(0, 0);
@@ -108,10 +105,10 @@ serial_command_t update_2nd_line_command(serial_command_t command, msg_direction
 
 void cyclic_display_update_handler() 
 {
-  if( last_connection_sts == status_connected )
+  if( get_connection_status() == status_connected )
   {
     lcd_display.clear();
-    update_1st_line_command(last_connection_sts);
+    update_1st_line_command();
     update_2nd_line_command(last_displayed_command, last_displayed_command_dir);
   }
 }
@@ -144,13 +141,12 @@ void toggle_lcd_backlight()
 }
 
 
-void update_lcd_display_text(connection_status_t connection, int command_id)
+void update_lcd_display_text(int command_id)
 {
-  last_connection_sts = connection;
-  if( connection == status_connected )
+  if( get_connection_status() == status_connected )
   {
     lcd_display.clear();
-    update_1st_line_command(connection);
+    update_1st_line_command();
     if( command_id != 0 )
     {
       lcd_display.setCursor(0, 1);
@@ -202,6 +198,10 @@ void update_lcd_display_text(connection_status_t connection, int command_id)
 
         case SERIAL_COM_COMMAND__safe_distance:
           last_displayed_command = update_2nd_line_command(serial_command_t("safe",command_id), tx);
+          break;
+
+        case SERIAL_COM_COMMAND__turning_mode:
+          last_displayed_command = update_2nd_line_command(serial_command_t("turnmode",command_id));
           break;
           
         default:

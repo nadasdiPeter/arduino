@@ -16,26 +16,26 @@
   #include <Arduino.h>
 
   /* Arduino-UNO pin layout */
-  #define PIN_0           0     /* unused */
-  #define PIN_1           1     /* unused */
-  #define PIN_2           2     /* unused */
-  #define PIN_3           3     /* unused */
-  #define RED_WL          4
-  #define YELLOW_WL       5
-  #define GREEN_WL        6
-  #define PIN_7           7     /* unused */
-  #define PIN_8           8     /* unused */
-  #define HCSR04_TRIGGER  9 
-  #define HCSR04_ECHO     10
-  #define PIN_11          11    /* unused */
-  #define PIN_12          12    /* unused */
-  #define PIN_13          13    /* unused */
-  #define PIN_ANALOG0     A0    /* unused */
-  #define LED_HEADLIGHT   A1
-  #define PIN_ANALOG2     A2    /* unused */
-  #define BATTERY_VOLTAGE A3    
-  #define LCD_PIN1        A4    
-  #define LCD_PIN2        A5    
+  #define PIN_0                             0     /* unused */
+  #define PIN_1                             1     /* unused */
+  #define PIN_2                             2     /* unused */
+  #define PIN_3                             3     /* unused */
+  #define RED_WL                            4
+  #define YELLOW_WL                         5
+  #define GREEN_WL                          6
+  #define PIN_7                             7     /* unused */
+  #define PIN_8                             8     /* unused */
+  #define HCSR04_TRIGGER                    9 
+  #define HCSR04_ECHO                       10
+  #define WS2812B_LEDSTRIP_DATAPIN          11
+  #define PIN_12                            12    /* unused */
+  #define PIN_13                            13    /* unused */
+  #define PIN_ANALOG0                       A0    /* unused */
+  #define LED_HEADLIGHT                     A1
+  #define PIN_ANALOG2                       A2    /* unused */
+  #define BATTERY_VOLTAGE                   A3    
+  #define LCD_PIN1                          A4    
+  #define LCD_PIN2                          A5    
 
 
   #define SERIAL_BAUD_RATE                  115200u   // serial communication speed (need to be the same on both side)
@@ -54,6 +54,16 @@
   #define UNDERVOLTAGE_MONITORING_TIME      3000u     // The monitoring time of the undervoltage situation. (ms)
   #define OVERVOLTAGE                       11.5      // The defined maximum limit of the main source voltage (Unit: Volt)
   #define VOLTAGE_DIVIDER_FACTOR            0.994     // A magic number used to correct the calculated battery voltage. (99.4%)
+  
+  
+  #define WS2812B_LEDSTRIP_LEDCOUNT         3         // Number of LEDs on the atttached WS2812B type LED-strip.
+  #define WS2812B_LED_RIGHT                 0         // The id of the most right LED on the WS2812B LED-strip.
+  #define WS2812B_LED_MIDDLE                1         // The id of the middle LED on the WS2812B LED-strip.
+  #define WS2812B_LED_LEFT                  2         // The id of the most left LED on the WS2812B LED-strip.
+  #define WS2812B_BRIGHTNESS_LOW            25        // The brightness scaling of the WS2812B Range: 0 .. 255
+  #define WS2812B_BRIGHTNESS_MEDIUM         100       // The brightness scaling of the WS2812B Range: 0 .. 255
+  #define WS2812B_BRIGHTNESS_BRIGHT         175       // The brightness scaling of the WS2812B Range: 0 .. 255
+  #define WS2812B_BRIGHTNESS_MAX            255       // The brightness scaling of the WS2812B Range: 0 .. 255
 
 
   #define ANALOG_READ_MAX_VALUE             1024      // Arduino able to read the value from the specified analog pin, it is uses a 10-bit analog to digital converter.
@@ -78,7 +88,18 @@
   #define SERIAL_COM_COMMAND__unsafe_distance             (char)0x75    /* Asci code: u */
   #define SERIAL_COM_COMMAND__safe_distance               (char)0x73    /* Asci code: s */
   #define SERIAL_COM_COMMAND__fca                         (char)0x66    /* Asci code: f */
-  #define SERIAL_COM_COMMAND__test                        (char)0x54    /* Asci code: T */
+  #define SERIAL_COM_COMMAND__turning_mode                (char)0x54    /* Asci code: T */
+  #define SERIAL_COM_COMMAND__test                        (char)0x74    /* Asci code: t */
+
+  enum direction_t
+  {
+    d_forward,
+    d_backward,
+    d_left,
+    d_right,
+    d_stop
+  };
+
 
   enum connection_status_t
   {

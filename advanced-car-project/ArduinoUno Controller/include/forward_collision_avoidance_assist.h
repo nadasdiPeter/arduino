@@ -31,7 +31,7 @@
    /**
     * Cyclic main function of the front-collision-avoidance-assist function
     */
-   extern void fca_main(connection_status_t connection_status);
+   extern void fca_main();
 
    /**
     * Returns the distance based zone information wether moving forward is safe or not
