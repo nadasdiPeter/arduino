@@ -100,7 +100,6 @@
     d_stop
   };
 
-
   enum connection_status_t
   {
     status_unconnected = SERIAL_COM_COMMAND__disconnected,

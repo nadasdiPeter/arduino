@@ -3,8 +3,9 @@
 #include "motor_controller.h"
 #include "serial_controller.h"
 
-boolean forward_allowed = true;
-turning_mode_t turning_mode = turning_mode_fast;
+boolean         forward_allowed       = true;
+turning_mode_t  turning_mode          = turning_mode_fast;
+direction_t     vehicle_motion_status = d_stop;
 
 void change_turning_mode()
 {
@@ -26,11 +27,13 @@ void move(int direction)
       digitalWrite(MotorB_DIR, FORWARD_direction);
       digitalWrite(MotorA_DIR, FORWARD_direction);
       digitalWrite(MotorA_PWM, MOTOR_SPEED__MAXIMUM);
-      digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM); 
+      digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM);
+      vehicle_motion_status = d_forward;
     }
     else
     {
       move(STOP);
+      vehicle_motion_status = d_stop;
     }
     break;
   case LEFT:
@@ -41,6 +44,7 @@ void move(int direction)
       digitalWrite(MotorA_DIR, BACKWARD_direction);
       digitalWrite(MotorA_PWM, MOTOR_SPEED__MAXIMUM);
     }
+    vehicle_motion_status = d_left;
     break;
   case RIGHT:
     digitalWrite(MotorA_DIR, FORWARD_direction);
@@ -50,15 +54,18 @@ void move(int direction)
       digitalWrite(MotorB_DIR, BACKWARD_direction);
       digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM);
     }
+    vehicle_motion_status = d_right;
     break;
   case BACKWARD:
     digitalWrite(MotorA_DIR, BACKWARD_direction);
     digitalWrite(MotorB_DIR, BACKWARD_direction);
     digitalWrite(MotorA_PWM, MOTOR_SPEED__MAXIMUM);
     digitalWrite(MotorB_PWM, MOTOR_SPEED__MAXIMUM);
+    vehicle_motion_status = d_backward;
     break;
   case STOP:
   default:
+    vehicle_motion_status = d_stop;
     digitalWrite(MotorA_PWM, MOTOR_SPEED__STANDSTILL);
     digitalWrite(MotorB_PWM, MOTOR_SPEED__STANDSTILL);  
     break;
@@ -79,11 +86,11 @@ void initilazize_motor_controller()
 
 void move_foward_unsafe()
 {
-  if(forward_allowed == true) 
+  if(forward_allowed == true && vehicle_motion_status != d_stop)
   {
     move(STOP);
-    serial_write(SERIAL_COM_COMMAND__stop);
     forward_allowed = false;
+    serial_write(SERIAL_COM_COMMAND__stop);
   }
 }
 

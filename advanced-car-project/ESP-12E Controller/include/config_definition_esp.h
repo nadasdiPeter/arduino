@@ -74,4 +74,13 @@
     turning_mode_fast
   };
 
+  enum direction_t
+  {
+    d_forward,
+    d_backward,
+    d_left,
+    d_right,
+    d_stop
+  };
+  
 #endif /* CONFIG_DEFINITION_ESP_H */
