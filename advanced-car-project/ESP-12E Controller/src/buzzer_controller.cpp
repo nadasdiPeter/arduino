@@ -15,10 +15,9 @@ void buzzer_timer_Callback()
    noTone(BUZZER);
 }
 
-void request_beep( int hertz )
+void request_beep(int hertz)
 {
    tone(BUZZER, hertz);
-   
    buzzer_timer.setTimeout(BEEP_TIME); 
    buzzer_timer.setCallback(buzzer_timer_Callback);
    buzzer_timer.start();

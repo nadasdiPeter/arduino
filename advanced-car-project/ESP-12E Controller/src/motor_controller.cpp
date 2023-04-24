@@ -86,6 +86,7 @@ void initilazize_motor_controller()
 
 void move_foward_unsafe()
 {
+  // Change from unsafe to safe when the vehicle is moving.
   if(forward_allowed == true && vehicle_motion_status != d_stop)
   {
     move(STOP);

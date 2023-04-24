@@ -42,6 +42,7 @@
    #define MOTOR_SPEED__MAXIMUM            255u
    #define MOTOR_SPEED__STANDSTILL         0u
    #define SERIAL_BAUD_RATE                115200u
+   #define SERIAL_COM_CYCLE                100u
 
    #define BEEP_TIME                       50u   // (ms)
    #define BEEP_500kHz                     500u  // (kHz)

@@ -5,6 +5,7 @@
 #include "wifi_controller.h"
 #include "esp_main.h"
 
+
 /* Setting up Wi-Fi Access point */
 IPAddress ip(192, 168, 4, 1);
 IPAddress netmask(255, 255, 255, 0);
@@ -90,7 +91,6 @@ void handleActionRequest()
     server.send(404, "text / plain", "Action: undefined");
   }
 }
-
 
 void handleNotFound() 
 {

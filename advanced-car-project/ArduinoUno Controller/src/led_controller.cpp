@@ -176,7 +176,6 @@ void toggle_led_headlight()
 
 void led_main()
 {
-   
    /* executed all the time when the connection status CONNECTED */
    if( get_connection_status() == status_connected )
    {
@@ -207,33 +206,33 @@ void led_main()
       switch (get_vehicle_status())
       {
       case d_stop:
-         WS2812B_Left  = CRGB::Red;
-         WS2812B_Right = CRGB::Red;
+         WS2812B_Left   = CRGB::Red;
+         WS2812B_Right  = CRGB::Red;
          WS2812B_Middle = CRGB::Black;
          break;
       case d_left:
-         WS2812B_Left  = CRGB::Yellow;
-         WS2812B_Right = CRGB::Black;
+         WS2812B_Left   = CRGB::Yellow;
+         WS2812B_Right  = CRGB::Black;
          WS2812B_Middle = CRGB::Black;
          break;
       case d_right:
-         WS2812B_Left  = CRGB::Black;
-         WS2812B_Right = CRGB::Yellow;
+         WS2812B_Left   = CRGB::Black;
+         WS2812B_Right  = CRGB::Yellow;
          WS2812B_Middle = CRGB::Black;
          break;
       case d_forward:
-         WS2812B_Left  = CRGB::Black;
-         WS2812B_Right = CRGB::Black;
+         WS2812B_Left   = CRGB::Black;
+         WS2812B_Right  = CRGB::Black;
          WS2812B_Middle = CRGB::Black;
          break;
       case d_backward:
-         WS2812B_Left  = CRGB::Red;
-         WS2812B_Right = CRGB::Red;
+         WS2812B_Left   = CRGB::Red;
+         WS2812B_Right  = CRGB::Red;
          WS2812B_Middle = CRGB::White;
          break;      
       default:
-         WS2812B_Left  = CRGB::Red;
-         WS2812B_Right = CRGB::Red;
+         WS2812B_Left   = CRGB::Red;
+         WS2812B_Right  = CRGB::Red;
          WS2812B_Middle = CRGB::Black;
          break;
       }

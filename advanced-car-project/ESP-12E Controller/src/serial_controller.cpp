@@ -20,7 +20,7 @@ void initialize_serial_controller()
   /* Open Serial port to communicate with the UNO */
   Serial.begin(SERIAL_BAUD_RATE);
 
-  serial_com_timer.setInterval(100); // The timer will repeat every 100 ms
+  serial_com_timer.setInterval(SERIAL_COM_CYCLE);
   serial_com_timer.setCallback(serial_com_timer_callback);
   serial_com_timer.start(); 
 }

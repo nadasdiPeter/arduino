@@ -10,7 +10,7 @@
 
 Timer display_update_cycle;
 LiquidCrystal_I2C lcd_display(0x27, 16, 2); // Set the LCD address to 0x27 for a 16 chars and 2 line display
-boolean backlight_status                    = true;
+boolean backlight_status = true;
 
 
 void display_main()
