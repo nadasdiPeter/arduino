@@ -5,6 +5,7 @@ ESP-12E (NodeMCU) and an Arduino-UNO based car project with wifi control and man
 
 <p align="center">
    <img src="./advanced-car-project/car_1.jpg" alt= “” width="30%" height="30%"> </img>
+   <img src="./advanced-car-project/CarController.png" alt= “” width="30%" height="30%"> </img>
    <img src="./advanced-car-project/car_2.jpg" alt= “” width="30%" height="30%"> </img>
 </p>
 
