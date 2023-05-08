@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -22,17 +21,19 @@ namespace CarController
             DataContext = lb_command_entries;
 
             /* Initialize Label */
-            hotkey_label.Content = "Hotkeys:\n" +
+            hotkey_label.Content = 
+                            " H o t k e y s:\n" +
                             "=============================\n" +
-                            " H     -   Headlight\n" +
-                            " L     -   LCD backlight\n" +
-                            " I     -   LCD info mode\n" +
-                            " T     -   Turn mode\n" +
-                            " F     -   FCA mode\n\n" +
+                            " 1     -   Headlight\n" +
+                            " 2     -   LCD backlight\n" +
+                            " 3     -   LCD info mode\n" +
+                            " 4     -   Turn mode\n" +
+                            " 5     -   FCA mode\n\n" +
                             " Up    -   Moving forward\n" +
                             " Down  -   Moving backward\n" +
                             " Right -   Moving right\n" +
-                            " Left  -   Moving left\n";
+                            " Left  -   Moving left\n" +
+                            " 0     -   Moving stop\n";
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -47,14 +48,23 @@ namespace CarController
             // Update Listbox view with the request - Insert the command details to the top row of the listbox.
             lb_command_entries.Insert(0, cmd);
 
-            // Update Listbox view with the response
-            lb_command_entries.Insert(0, new Command(await GetAsync(Configuration.SERVER + cmd.Id)));
+            try
+            {
+                // Update Listbox view with the response
+                lb_command_entries.Insert(0, new Command(await GetAsync(Configuration.SERVER + cmd.Id)));
+            }
+            catch (WebException ex)
+            {
+                // Handle exeption if there is no response from the car
+                lb_command_entries.Insert(0, new Command(Configuration.ERROR__http_timeout));
+            }
+            
         }
 
         private void HandleKeyRelease(object sender, KeyEventArgs e)
         {
             action_key_pressed = false;
-            if ((e.Key == Key.Up) || (e.Key == Key.Down) || (e.Key == Key.Right) || (e.Key == Key.Left)) 
+            if ((e.Key == Key.Up) || (e.Key == Key.Down) || (e.Key == Key.Right) || (e.Key == Key.Left))
                 HandleHttpGetRequests(new Command(Configuration.COMMAND__stop));
         }
 
@@ -65,22 +75,22 @@ namespace CarController
                 action_key_pressed = true;
                 switch (e.Key)
                 {
-                    case Key.H:
+                    case Key.D1:
                         HandleHttpGetRequests(new Command(Configuration.COMMAND__headlight));
                         break;
-                    case Key.L:
+                    case Key.D2:
                         HandleHttpGetRequests(new Command(Configuration.COMMAND__lcd_backlight));
                         break;
-                    case Key.I:
+                    case Key.D3:
                         HandleHttpGetRequests(new Command(Configuration.COMMAND__lcd_info));
                         break;
-                    case Key.T:
+                    case Key.D4:
                         HandleHttpGetRequests(new Command(Configuration.COMMAND__turn_mode));
                         break;
-                    case Key.F:
+                    case Key.D5:
                         HandleHttpGetRequests(new Command(Configuration.COMMAND__fca));
                         break;
-                    case Key.S:
+                    case Key.D0:
                         HandleHttpGetRequests(new Command(Configuration.COMMAND__stop));
                         break;
                     case Key.Up:

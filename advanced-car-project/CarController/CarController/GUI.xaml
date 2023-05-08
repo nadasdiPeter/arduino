@@ -17,22 +17,25 @@
         <ListBox Name="commandsListBox" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="391" Margin="10,35,0,0" VerticalAlignment="Top" Width="503" FontFamily="Consolas" FontWeight="Normal">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="2">
-                        <TextBlock Foreground="Red" Text=">> " Margin="1"></TextBlock>
-                        <TextBlock Foreground="Blue" Text="{Binding Id}" Margin="2"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0">
+                        <TextBlock Foreground="Red" Text="{Binding Time}" Margin="0"></TextBlock>
+                        <TextBlock Foreground="Red" Text=": "  Margin="0"></TextBlock>
+                        <TextBlock Foreground="{Binding Color}" Text="{Binding Category}" Margin="0"></TextBlock>
+                        <TextBlock Foreground="{Binding Color}" Text="::" Margin="0"></TextBlock>
+                        <TextBlock Foreground="{Binding Color}" Text="{Binding Name}" Margin="0"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Name="hotkey_label" Content="Label" Grid.Column="1" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" FontFamily="Consolas" RenderTransformOrigin="0.486,0.484" Width="270" Height="199"/>
-      <Button Name="stop_btn" Content="Stop" Grid.Column="1" HorizontalAlignment="Left" Margin="131,278,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFD47575"/>
+      <Label Name="hotkey_label" Content="Hotkey(s):" Grid.Column="1" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" FontFamily="Consolas" RenderTransformOrigin="0.486,0.484" Width="270" Height="199"/>
+      <Button Name="stop_btn" Content="STOP" Grid.Column="1" HorizontalAlignment="Left" Margin="131,278,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFD47575"/>
       <Button Content="Right" Grid.Column="1" HorizontalAlignment="Left" Margin="186,278,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FF9DD397"/>
       <Button Content="Left" Grid.Column="1" HorizontalAlignment="Left" Margin="76,278,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FF9DD397"/>
       <Button Content="Backw." Grid.Column="1" HorizontalAlignment="Left" Margin="131,333,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FF9DD397"/>
       <Button Content="Forw." Grid.Column="1" HorizontalAlignment="Left" Margin="131,223,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FF9DD397"/>
-      <Button Content="Headlight" Grid.Column="1" HorizontalAlignment="Left" Margin="76,222,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8"/>
-      <Button Content="LCD mode" Grid.Column="1" HorizontalAlignment="Left" Margin="186,223,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8"/>
-      <Button Content="Turn mode" Grid.Column="1" HorizontalAlignment="Left" Margin="76,333,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8"/>
-      <Button Content="FCA mode" Grid.Column="1" HorizontalAlignment="Left" Margin="186,333,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8" RenderTransformOrigin="0.424,0.55"/>
+      <Button Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="76,222,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8"/>
+      <Button Content="Info" Grid.Column="1" HorizontalAlignment="Left" Margin="186,223,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8"/>
+      <Button Content="Turn" Grid.Column="1" HorizontalAlignment="Left" Margin="76,333,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8"/>
+      <Button Content="Fca" Grid.Column="1" HorizontalAlignment="Left" Margin="186,333,0,0" VerticalAlignment="Top" Width="50" Height="50" Background="#FFF1ED91" FontSize="8" RenderTransformOrigin="0.424,0.55"/>
    </Grid>
 </Window>

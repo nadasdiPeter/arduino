@@ -16,39 +16,39 @@ void handleMoveRequest()
 {
   if (!server.hasArg("dir")) 
   {
-    server.send(404, "text / plain", "Move: undefined");
+    server.send(404, "text / plain", "Move/undefined::DECLINED");
     return;
   }
   String direction = server.arg("dir");
   if (direction.equals("F")) 
   {
     interpreter(FORWARD);
-    server.send(200, "text / plain", "Move: forward");
+    server.send(200, "text / plain", "Move/forward::ACCEPTED");
   }
   else if (direction.equals("B")) 
   {
     interpreter(BACKWARD);
-    server.send(200, "text / plain", "Move: backward");
+    server.send(200, "text / plain", "Move/backward::ACCEPTED");
   }
   else if (direction.equals("S")) 
   {
     interpreter(STOP);
-    server.send(200, "text / plain", "Move: stop");
+    server.send(200, "text / plain", "Move/stop::ACCEPTED");
   }
   else if (direction.equals("L")) 
   {
     interpreter(LEFT);
-    server.send(200, "text / plain", "Turn: left");
+    server.send(200, "text / plain", "Move/left::ACCEPTED");
   }
   else if (direction.equals("R")) 
   {
     interpreter(RIGHT);
-    server.send(200, "text / plain", "Turn: right");
+    server.send(200, "text / plain", "Move/right::ACCEPTED");
   }
   else 
   {
     interpreter(STOP);  // For unrecognized MOVE command STOP the vehicle
-    server.send(404, "text / plain", "Move: undefined");
+    server.send(404, "text / plain", "Move/undefined::DECLINED");
   }
 }
 
@@ -56,39 +56,39 @@ void handleActionRequest()
 {
   if (!server.hasArg("type")) 
   {
-    server.send(404, "text / plain", "Action: undefined");
+    server.send(404, "text / plain", "Action/undefined::DECLINED");
     return;
   }
   String type = server.arg("type");
   if (type.equals("1")) 
   {
     interpreter(LED);
-    server.send(200, "text / plain", "Action: led-mode");
+    server.send(200, "text / plain", "Action/hedlight::ACCEPTED");
   }
   else if (type.equals("2")) 
   {
     interpreter(LCD);
-    server.send(200, "text / plain", "Action: lcd-mode");
+    server.send(200, "text / plain", "Action/lcd::ACCEPTED");
   }
   else if (type.equals("3")) 
   {
     interpreter(INFO);
-    server.send(200, "text / plain", "Action: info-mode");
+    server.send(200, "text / plain", "Action/info-mode::ACCEPTED");
   }
   else if (type.equals("4")) 
   {
     interpreter(TURNING_MODE);
-    server.send(200, "text / plain", "Action: turning-mode");
+    server.send(200, "text / plain", "Action/turn-mode::ACCEPTED");
   }
   else if (type.equals("5")) 
   {
     interpreter(FCA);
-    server.send(200, "text / plain", "Action: fca-mode");
+    server.send(200, "text / plain", "Action/fca-mode::ACCEPTED");
   }
   else 
   {
     interpreter(STOP);
-    server.send(404, "text / plain", "Action: undefined");
+    server.send(404, "text / plain", "Action/undefined::DECLINED");
   }
 }
 
