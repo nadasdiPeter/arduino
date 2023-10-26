@@ -70,11 +70,12 @@ void command__indoorhumidity(telegramMessage message)
 void command__runtime(telegramMessage message)
 {
   unsigned long ms = millis();
+
   unsigned long sec = ms/1000;
   unsigned long min = sec/60;
   unsigned long h = min/60;
 
-  min = min - (h*6);
+  min = min - (h*60);
   sec = sec - ((h*3600)+(min*60));
 
   String reply = "<b>>> Runtime</b>\n";
