@@ -14,10 +14,14 @@ bool is_verified_user(String chat_id)
 
 void command__start(telegramMessage message)
 {
-  String welcome = "Hello " + message.from_name + ",\n";
+  String welcome = "<b>>> Start</b>\nHello " + message.from_name + ",\n";
   welcome += "Use the following commands to control your outputs.\n\n";
-  welcome += "/generate to generate new password \n";
-  send_message(message.chat_id, welcome);
+  welcome += "/update\n";
+  welcome += "/temperature\n";
+  welcome += "/humidity\n";
+  welcome += "/runtime\n";
+  welcome += "/version\n";
+  send_message(message.chat_id, welcome, "HTML");
 }
 
 
@@ -102,6 +106,7 @@ void message_interpreter(telegramMessage message)
   else
   {
     if (text == "/update") command__update_commands(message);
+    else if (text == "/start") command__start(message);
     else if (text == "/temperature") command__indoortemp(message);
     else if (text == "/humidity") command__indoorhumidity(message);
     else if (text == "/runtime") command__runtime(message);

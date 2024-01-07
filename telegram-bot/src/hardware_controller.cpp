@@ -48,13 +48,13 @@ void WifiLED_OFF()
 
 int Get_DHT11_temperature()
 {
-   DHT11.read(D5);
+   DHT11.read(D8);
    return DHT11.temperature;
 }
 
 int Get_DHT11_humidity()
 {
-   DHT11.read(D5);
+   DHT11.read(D8);
    return DHT11.humidity;
 }
 
