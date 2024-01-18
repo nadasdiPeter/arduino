@@ -51,11 +51,14 @@
    */
    extern aht10_status_t Get_AHT10_status();
 
-
-   extern float Get_AHT10_median_temperature_float();
-   extern String Get_AHT10_median_temperature_string();
-
+   /**
+   * Does not triggers a temperature reading just provides the most recent available temperature value in celsius, in float format.
+   */ 
    extern float Get_AHT10_last_measured_temperature_float();
+   
+   /**
+   * Does not triggers a temperature reading just provides the most recent available temperature value in celsius, in string format.
+   */ 
    extern String Get_AHT10_last_measured_temperature_string();
 
 #endif /* AHT10_CONTROLLER_H */

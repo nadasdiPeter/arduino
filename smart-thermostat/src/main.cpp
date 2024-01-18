@@ -11,6 +11,7 @@ void setup()
    initialize_wifi_controller();
    initialize_telegram_bot();
    initialize_aht10_controller();
+   initialize_heating_controller();
 }
 
 /* main loop */
@@ -20,4 +21,5 @@ void loop()
    display_controller_main();
    aht10_controller_main();
    telegram_bot_main();
+   heating_controller_main();
 }

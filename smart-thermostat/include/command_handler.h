@@ -21,7 +21,6 @@
    #include "aht10_controller.h"
    #include "telegram_bot.h"
    #include "config.h"
-   #include "message_handler.h"
 
    /**
     * Interprets the received commands and initiate the needed actions.

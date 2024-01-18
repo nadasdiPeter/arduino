@@ -11,8 +11,12 @@
 #ifndef CONFIG_H
    #define CONFIG_H
 
+   #include <Arduino.h> 
+
+   #define VERSION                           "v1.0.0.0"
    #define TELEGRAM_BOT_CYCLE_TIME           1000
-   
+
+   #define LED_PIN                           D8   
    #define OLED_SDA_PIN                      D5
    #define OLED_SCL_PIN                      D6
 
@@ -20,7 +24,9 @@
    #define AHT10_SCL_PIN                     D6
    #define AHT10_INITIALIZATION_DELAY_TIME   5000
    #define AHT10_TEMPERATURE_ARRAY_SIZE      100
-   #define AHT10_TEMPERATURE_SAMPLING_TIME   2500
+   #define AHT10_TEMPERATURE_SAMPLING_TIME   3000
+
+   #define DISPLAY_REFRESH_RATE              1000
    
    #define WIFI_INITIALIZATION_DELAY_TIME    100
 
@@ -31,10 +37,22 @@
       aht10_unknown,
    };
 
+   enum sensor_t
+   {
+      sensor_temperature,
+      sensor_humidity,
+   };
+
    enum oled_status_t
    {
-      oled_on,
       oled_off,
+      oled_on,
+   };
+
+   enum sheduling_time_t
+   {
+      day_time,
+      night_time,
    };
 
    enum message_t
@@ -47,6 +65,14 @@
       get_humidity,
       oled_setOn,
       oled_setOff
+   };
+
+   struct Shedule 
+   {
+      int daytime_start_hrs;
+      int daytime_start_min;
+      int nighttime_start_hrs;
+      int nighttime_start_min;
    };
 
 #if(AHT10_TEMPERATURE_SAMPLING_TIME < 2000)

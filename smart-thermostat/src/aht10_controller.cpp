@@ -97,23 +97,6 @@ String Get_AHT10_actual_temperature_string()
    return temperature;
 }
 
-float Get_AHT10_median_temperature_float()
-{
-   float sum = 0;
-   for(int i=0; i < AHT10_TEMPERATURE_ARRAY_SIZE; i++)
-   {
-      sum += temperature_array[i];
-   }
-   return sum / (float)AHT10_TEMPERATURE_ARRAY_SIZE;
-}
-
-String Get_AHT10_median_temperature_string()
-{
-   String temperature = "";
-   temperature += Get_AHT10_median_temperature_float();
-   return temperature;
-}
-
 String Get_AHT10_last_measured_temperature_string()
 {
    String temperature = "";

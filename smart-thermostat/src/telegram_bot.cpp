@@ -13,6 +13,12 @@ bool send_message(String message)
   return bot.sendMessage(CHAT_ID, message, "HTML");
 }
 
+bool send_message(String title, String message) 
+{
+  String msg = ">> <b>" + title + "</b>\n" + message;
+  return bot.sendMessage(CHAT_ID, msg, "HTML");
+}
+
 bool send_message(String chat_id, String message, String mode) 
 {
   /* mode refers for text formatting, can be HTML, Markdown, MarkdownV2. */
@@ -22,6 +28,12 @@ bool send_message(String chat_id, String message, String mode)
 bool send_message_forced(String message) 
 {
   while (send_message(message) != true){}
+  return true;
+}
+
+bool send_message_forced(String title, String message) 
+{
+  while (send_message(title, message) != true){}
   return true;
 }
 

@@ -18,7 +18,6 @@
    #include <ArduinoJson.h>
    #include "credentials.h"
    #include "config.h"
-   #include "message_handler.h"
 
    extern WiFiClientSecure client; /* Provides the wificlient available for the telegram-bot */
 
@@ -41,5 +40,36 @@
     *  Provides the MAC address of the board after an established wifi connection.
     */
    extern String GetMAC();
+
+   /**
+    *  Provides the wi-fi connection status.
+    */
+   extern bool Get_connection_status();
+
+   /**
+    *  Provides the wi-fi connection status in string format.
+    */
+   extern String Get_connection_status_string();
+
+   /**
+    *  Provides the hour
+    */
+   extern int Get_NTP_hour();
+   
+   /**
+    *  Provides the minute
+    */
+   extern int Get_NTP_minute();
+
+
+   /**
+    *  Provides the time in hh:mm format
+    */
+   extern String Get_NTP_time();
+
+   /**
+    *  Provides the day name
+    */
+   extern String Get_NTP_day();
 
 #endif /* WIFI_CONTROLLER_H */

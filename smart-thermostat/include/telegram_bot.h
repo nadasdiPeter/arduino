@@ -20,7 +20,6 @@
    #include "credentials.h"
    #include "config.h"
    #include "wifi_controller.h"
-   #include "message_handler.h"
    #include "command_handler.h"
 
    /**
@@ -47,7 +46,14 @@
     * 
     * @returns Returns true if the sending was successfull, otherwise false.
     */
-   extern bool send_message(String message); 
+   extern bool send_message(String message);
+
+   /**
+    * Sends the specified telegram message
+    * 
+    * @returns Returns true if the sending was successfull, otherwise false.
+    */
+   extern bool send_message(String title, String message); 
 
    /**
     * Sends the specified telegram message, keeps trying until successfull sending.
@@ -62,6 +68,13 @@
     * @returns Returns true if the sending was successfull, otherwise false.
     */
    extern bool send_message_forced(String message); 
+
+   /**
+    * Sends the specified telegram message, keeps trying until successfull sending.
+    * 
+    * @returns Returns true if the sending was successfull, otherwise false.
+    */
+   extern bool send_message_forced(String title, String message);
 
    /**
     * Checks if the received message was sent by authorized user.
